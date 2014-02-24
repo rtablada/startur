@@ -4,8 +4,8 @@
 "use strict";
 
 // Grab claymate library.
-var Claymate = require('../lib/claymate.js'),
-	JSONConfig = Claymate.getJSONConfig();
+var Startur = require('../lib/startur.js'),
+	JSONConfig = Startur.getJSONConfig();
 
 var usage =
 "$0 [subcommand] [arguments]\n\
@@ -51,6 +51,11 @@ var Optimist = require('optimist').usage(usage, {
 			boolean: true,
 			alias: 'e'
 		},
+		'laravel': {
+			description: '[install] Sets up more things for Laravel.',
+			boolean: true,
+			alias: 'l'
+		},
 		'quiet': {
 			description: '[all] Supresses non-error messages.',
 			boolean: true,
@@ -67,7 +72,7 @@ var Optimist = require('optimist').usage(usage, {
 
 // Look for version request.
 if (argv.version) {
-	console.log(Claymate.getClaymateVersion());
+	console.log(Startur.getStarturVersion());
 	return 0;
 }
 
@@ -85,18 +90,19 @@ switch (argv._[0]) {
 			quiet: getArg('quiet', 'build')
 		};
 
-		Claymate.build(buildOpts);
+		Startur.build(buildOpts);
 
 		break;
 
-	case 'install':
+	case 'up':
 
-		var installOpts = {
-			edge: getArg('edge', 'install'),
-			quiet: getArg('quiet', 'install')
+		var upOpts = {
+			edge: getArg('edge', 'up'),
+			quiet: getArg('quiet', 'up'),
+			laravel: getArg('laravel', 'up')
 		};
 
-		Claymate.install(installOpts);
+		Startur.up(upOpts);
 
 		break;
 
